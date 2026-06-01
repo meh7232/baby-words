@@ -126,11 +126,27 @@ const CARD_COLORS = [
 function speak(text: string) {
   if (typeof window === 'undefined') return;
   window.speechSynthesis.cancel();
-  const utter = new SpeechSynthesisUtterance(text);
-  utter.lang = 'en-US';
-  utter.rate = 0.8;
-  utter.pitch = 1.2;
-  window.speechSynthesis.speak(utter);
+
+  const doSpeak = () => {
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.lang = 'en-US';
+    utter.rate = 0.8;
+    utter.pitch = 1.2;
+    const voices = window.speechSynthesis.getVoices();
+    const enVoice = voices.find(v => v.lang.startsWith('en-US')) || voices.find(v => v.lang.startsWith('en'));
+    if (enVoice) utter.voice = enVoice;
+    window.speechSynthesis.speak(utter);
+  };
+
+  const voices = window.speechSynthesis.getVoices();
+  if (voices.length > 0) {
+    doSpeak();
+  } else {
+    window.speechSynthesis.onvoiceschanged = () => {
+      window.speechSynthesis.onvoiceschanged = null;
+      doSpeak();
+    };
+  }
 }
 
 export default function Home() {
