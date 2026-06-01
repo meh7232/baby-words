@@ -139,15 +139,36 @@ function speak(text: string) {
   });
 }
 
+function isInAppBrowser() {
+  if (typeof window === 'undefined') return false;
+  const ua = navigator.userAgent;
+  return /NAVER|KAKAOTALK|Instagram|FBAN|FBAV|Line\/|wv\)/.test(ua);
+}
+
 export default function Home() {
   const [cat, setCat] = useState<keyof typeof WORDS | '노래'>('동물');
   const [active, setActive] = useState<number | null>(null);
+  const inApp = isInAppBrowser();
 
   const isSong = cat === '노래';
   const words = isSong ? [] : WORDS[cat as keyof typeof WORDS];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-sky-100 to-white">
+
+      {/* 인앱 브라우저 경고 */}
+      {inApp && (
+        <div className="bg-yellow-50 border-b border-yellow-200 px-4 py-3 text-center">
+          <p className="text-sm text-yellow-800 font-bold">🔈 소리가 안 들리면 크롬으로 열어주세요!</p>
+          <a
+            href={`intent://${window.location.host}${window.location.pathname}#Intent;scheme=https;package=com.android.chrome;end;`}
+            className="text-xs text-blue-600 underline mt-1 inline-block"
+          >
+            크롬으로 열기 →
+          </a>
+        </div>
+      )}
+
       {/* 헤더 */}
       <div className="text-center pt-8 pb-4 px-4">
         <p className="text-4xl mb-1">🌟</p>
