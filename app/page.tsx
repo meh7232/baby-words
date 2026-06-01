@@ -125,26 +125,29 @@ const CARD_COLORS = [
 
 function speak(text: string) {
   if (typeof window === 'undefined') return;
-  window.speechSynthesis.cancel();
+  const synth = window.speechSynthesis;
+  if (synth.paused) synth.resume();
+  synth.cancel();
 
   const doSpeak = () => {
+    if (synth.paused) synth.resume();
     const utter = new SpeechSynthesisUtterance(text);
     utter.lang = 'en-US';
     utter.rate = 0.8;
     utter.pitch = 1.2;
-    const voices = window.speechSynthesis.getVoices();
-    const enVoice = voices.find(v => v.lang.startsWith('en-US')) || voices.find(v => v.lang.startsWith('en'));
+    const voices = synth.getVoices();
+    const enVoice = voices.find(v => v.lang.startsWith('en-US')) ?? voices.find(v => v.lang.startsWith('en'));
     if (enVoice) utter.voice = enVoice;
-    window.speechSynthesis.speak(utter);
+    synth.speak(utter);
   };
 
-  const voices = window.speechSynthesis.getVoices();
+  const voices = synth.getVoices();
   if (voices.length > 0) {
-    doSpeak();
+    setTimeout(doSpeak, 100);
   } else {
-    window.speechSynthesis.onvoiceschanged = () => {
-      window.speechSynthesis.onvoiceschanged = null;
-      doSpeak();
+    synth.onvoiceschanged = () => {
+      synth.onvoiceschanged = null;
+      setTimeout(doSpeak, 100);
     };
   }
 }
