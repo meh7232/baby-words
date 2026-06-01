@@ -125,31 +125,18 @@ const CARD_COLORS = [
 
 function speak(text: string) {
   if (typeof window === 'undefined') return;
-  const synth = window.speechSynthesis;
-  if (synth.paused) synth.resume();
-  synth.cancel();
-
-  const doSpeak = () => {
-    if (synth.paused) synth.resume();
-    const utter = new SpeechSynthesisUtterance(text);
-    utter.lang = 'en-US';
-    utter.rate = 0.8;
-    utter.pitch = 1.2;
-    const voices = synth.getVoices();
-    const enVoice = voices.find(v => v.lang.startsWith('en-US')) ?? voices.find(v => v.lang.startsWith('en'));
-    if (enVoice) utter.voice = enVoice;
-    synth.speak(utter);
-  };
-
-  const voices = synth.getVoices();
-  if (voices.length > 0) {
-    setTimeout(doSpeak, 100);
-  } else {
-    synth.onvoiceschanged = () => {
-      synth.onvoiceschanged = null;
-      setTimeout(doSpeak, 100);
-    };
-  }
+  const url = `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(text)}&tl=en&client=tw-ob`;
+  const audio = new Audio(url);
+  audio.play().catch(() => {
+    const synth = window.speechSynthesis;
+    synth.cancel();
+    setTimeout(() => {
+      const utter = new SpeechSynthesisUtterance(text);
+      utter.lang = 'en-US';
+      utter.rate = 0.8;
+      synth.speak(utter);
+    }, 100);
+  });
 }
 
 export default function Home() {
