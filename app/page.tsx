@@ -76,6 +76,28 @@ const WORDS = {
     { emoji: '👩‍🍼', en: 'aunt', ko: '이모/고모', pron: '앤트' },
     { emoji: '👨‍💼', en: 'uncle', ko: '삼촌', pron: '엉클' },
   ],
+  동작: [
+    { emoji: '🏃', en: 'run', ko: '달리다', pron: '런' },
+    { emoji: '🛑', en: 'stop', ko: '멈추다', pron: '스탑' },
+    { emoji: '🦘', en: 'jump', ko: '점프하다', pron: '점프' },
+    { emoji: '🚶', en: 'walk', ko: '걷다', pron: '워크' },
+    { emoji: '🪑', en: 'sit', ko: '앉다', pron: '싯' },
+    { emoji: '🧍', en: 'stand', ko: '서다', pron: '스탠드' },
+    { emoji: '😴', en: 'sleep', ko: '자다', pron: '슬립' },
+    { emoji: '🍽️', en: 'eat', ko: '먹다', pron: '잇' },
+    { emoji: '🥤', en: 'drink', ko: '마시다', pron: '드링크' },
+    { emoji: '💃', en: 'dance', ko: '춤추다', pron: '댄스' },
+    { emoji: '🎵', en: 'sing', ko: '노래하다', pron: '씽' },
+    { emoji: '👏', en: 'clap', ko: '박수치다', pron: '클랩' },
+    { emoji: '👋', en: 'wave', ko: '손흔들다', pron: '웨이브' },
+    { emoji: '🦩', en: 'balance', ko: '한쪽발들기', pron: '발란스' },
+    { emoji: '🌀', en: 'spin', ko: '돌다', pron: '스핀' },
+    { emoji: '🤗', en: 'hug', ko: '안아주다', pron: '허그' },
+    { emoji: '😂', en: 'laugh', ko: '웃다', pron: '래프' },
+    { emoji: '🎯', en: 'throw', ko: '던지다', pron: '쓰로우' },
+    { emoji: '🙌', en: 'catch', ko: '잡다', pron: '캣치' },
+    { emoji: '🦵', en: 'kick', ko: '발차기', pron: '킥' },
+  ],
 };
 
 const CAT_COLORS: Record<string, string> = {
@@ -83,6 +105,7 @@ const CAT_COLORS: Record<string, string> = {
   과일: 'bg-orange-400',
   신체: 'bg-blue-400',
   가족: 'bg-pink-400',
+  동작: 'bg-purple-400',
 };
 
 const CARD_COLORS = [
