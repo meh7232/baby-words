@@ -100,6 +100,12 @@ const WORDS = {
   ],
 };
 
+const SONGS = [
+  { emoji: '🦈', title: 'Baby Shark', ko: '아기상어', id: 'XqZsoesa55w' },
+  { emoji: '⭐', title: 'Twinkle Twinkle', ko: '작은별', id: 'yCjJyiqpAuU' },
+  { emoji: '🎵', title: '엄마가 찾은 노래', ko: '직접 추가한 노래', id: 'fPMjnlTEZwU' },
+];
+
 const CAT_COLORS: Record<string, string> = {
   동물: 'bg-green-400',
   과일: 'bg-orange-400',
@@ -128,10 +134,11 @@ function speak(text: string) {
 }
 
 export default function Home() {
-  const [cat, setCat] = useState<keyof typeof WORDS>('동물');
+  const [cat, setCat] = useState<keyof typeof WORDS | '노래'>('동물');
   const [active, setActive] = useState<number | null>(null);
 
-  const words = WORDS[cat];
+  const isSong = cat === '노래';
+  const words = isSong ? [] : WORDS[cat as keyof typeof WORDS];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-sky-100 to-white">
@@ -139,31 +146,62 @@ export default function Home() {
       <div className="text-center pt-8 pb-4 px-4">
         <p className="text-4xl mb-1">🌟</p>
         <h1 className="text-2xl font-black text-sky-500">Baby Words</h1>
-        <p className="text-sm text-gray-400">카드를 눌러서 발음을 들어봐요!</p>
+        <p className="text-sm text-gray-400">{isSong ? '노래를 눌러서 들어봐요!' : '카드를 눌러서 발음을 들어봐요!'}</p>
       </div>
 
       {/* 카테고리 */}
       <div className="flex justify-center gap-2 flex-wrap px-4 mb-6">
         {(Object.keys(WORDS) as (keyof typeof WORDS)[]).map(c => (
           <button key={c} onClick={() => { setCat(c); setActive(null); }}
-            className={`px-5 py-2 rounded-full text-white font-bold text-sm shadow-sm transition-all ${CAT_COLORS[c]} ${cat === c ? 'scale-110 shadow-md' : 'opacity-60'}`}>
+            className={`px-4 py-2 rounded-full text-white font-bold text-sm shadow-sm transition-all ${CAT_COLORS[c]} ${cat === c ? 'scale-110 shadow-md' : 'opacity-60'}`}>
             {c} ({WORDS[c].length})
           </button>
         ))}
+        <button onClick={() => { setCat('노래'); setActive(null); }}
+          className={`px-4 py-2 rounded-full text-white font-bold text-sm shadow-sm transition-all bg-red-400 ${cat === '노래' ? 'scale-110 shadow-md' : 'opacity-60'}`}>
+          🎵 노래 ({SONGS.length})
+        </button>
       </div>
 
+      {/* 노래 탭 */}
+      {isSong && (
+        <div className="flex flex-col gap-5 px-4 pb-10 max-w-lg mx-auto">
+          {SONGS.map(s => (
+            <div key={s.id} className="bg-white rounded-3xl shadow-md overflow-hidden border border-gray-100">
+              <div className="flex items-center gap-3 px-4 py-3 bg-red-50">
+                <span className="text-3xl">{s.emoji}</span>
+                <div>
+                  <p className="font-black text-gray-700">{s.title}</p>
+                  <p className="text-xs text-gray-400">{s.ko}</p>
+                </div>
+              </div>
+              <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+                <iframe
+                  className="absolute top-0 left-0 w-full h-full"
+                  src={`https://www.youtube.com/embed/${s.id}`}
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                />
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
       {/* 단어 카드 */}
-      <div className="grid grid-cols-2 gap-3 px-4 pb-10 max-w-lg mx-auto">
-        {words.map((w, i) => (
-          <button key={w.en} onClick={() => { speak(w.en); setActive(i); }}
-            className={`${CARD_COLORS[i % CARD_COLORS.length]} border-2 rounded-3xl p-4 flex flex-col items-center gap-1 shadow-sm active:scale-95 transition-all ${active === i ? 'scale-105 shadow-lg ring-2 ring-sky-300' : ''}`}>
-            <span className="text-5xl">{w.emoji}</span>
-            <span className="text-xl font-black text-gray-700 mt-1">{w.en}</span>
-            <span className="text-xs font-bold text-sky-500">{w.pron}</span>
-            <span className="text-xs text-gray-400">{w.ko}</span>
-          </button>
-        ))}
-      </div>
+      {!isSong && (
+        <div className="grid grid-cols-2 gap-3 px-4 pb-10 max-w-lg mx-auto">
+          {words.map((w, i) => (
+            <button key={w.en} onClick={() => { speak(w.en); setActive(i); }}
+              className={`${CARD_COLORS[i % CARD_COLORS.length]} border-2 rounded-3xl p-4 flex flex-col items-center gap-1 shadow-sm active:scale-95 transition-all ${active === i ? 'scale-105 shadow-lg ring-2 ring-sky-300' : ''}`}>
+              <span className="text-5xl">{w.emoji}</span>
+              <span className="text-xl font-black text-gray-700 mt-1">{w.en}</span>
+              <span className="text-xs font-bold text-sky-500">{w.pron}</span>
+              <span className="text-xs text-gray-400">{w.ko}</span>
+            </button>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
