@@ -4,52 +4,77 @@ import { useState } from 'react';
 
 const WORDS = {
   동물: [
-    { emoji: '🐕', en: 'dog', ko: '강아지' },
-    { emoji: '🐱', en: 'cat', ko: '고양이' },
-    { emoji: '🐦', en: 'bird', ko: '새' },
-    { emoji: '🐟', en: 'fish', ko: '물고기' },
-    { emoji: '🐰', en: 'rabbit', ko: '토끼' },
-    { emoji: '🐻', en: 'bear', ko: '곰' },
-    { emoji: '🐘', en: 'elephant', ko: '코끼리' },
-    { emoji: '🦁', en: 'lion', ko: '사자' },
-    { emoji: '🐒', en: 'monkey', ko: '원숭이' },
-    { emoji: '🦆', en: 'duck', ko: '오리' },
-    { emoji: '🐄', en: 'cow', ko: '소' },
-    { emoji: '🐷', en: 'pig', ko: '돼지' },
+    { emoji: '🐕', en: 'dog', ko: '강아지', pron: '독' },
+    { emoji: '🐱', en: 'cat', ko: '고양이', pron: '캣' },
+    { emoji: '🐦', en: 'bird', ko: '새', pron: '버드' },
+    { emoji: '🐟', en: 'fish', ko: '물고기', pron: '피쉬' },
+    { emoji: '🐰', en: 'rabbit', ko: '토끼', pron: '래빗' },
+    { emoji: '🐻', en: 'bear', ko: '곰', pron: '베어' },
+    { emoji: '🐘', en: 'elephant', ko: '코끼리', pron: '엘리펀트' },
+    { emoji: '🦁', en: 'lion', ko: '사자', pron: '라이언' },
+    { emoji: '🐒', en: 'monkey', ko: '원숭이', pron: '멍키' },
+    { emoji: '🦆', en: 'duck', ko: '오리', pron: '덕' },
+    { emoji: '🐄', en: 'cow', ko: '소', pron: '카우' },
+    { emoji: '🐷', en: 'pig', ko: '돼지', pron: '피그' },
+    { emoji: '🐴', en: 'horse', ko: '말', pron: '홀스' },
+    { emoji: '🐑', en: 'sheep', ko: '양', pron: '쉽' },
+    { emoji: '🐔', en: 'chicken', ko: '닭', pron: '치킨' },
+    { emoji: '🐯', en: 'tiger', ko: '호랑이', pron: '타이거' },
+    { emoji: '🐸', en: 'frog', ko: '개구리', pron: '프로그' },
+    { emoji: '🦋', en: 'butterfly', ko: '나비', pron: '버터플라이' },
+    { emoji: '🐧', en: 'penguin', ko: '펭귄', pron: '펭귄' },
+    { emoji: '🦊', en: 'fox', ko: '여우', pron: '팍스' },
   ],
   과일: [
-    { emoji: '🍎', en: 'apple', ko: '사과' },
-    { emoji: '🍌', en: 'banana', ko: '바나나' },
-    { emoji: '🍊', en: 'orange', ko: '오렌지' },
-    { emoji: '🍇', en: 'grape', ko: '포도' },
-    { emoji: '🍓', en: 'strawberry', ko: '딸기' },
-    { emoji: '🍉', en: 'watermelon', ko: '수박' },
-    { emoji: '🍑', en: 'peach', ko: '복숭아' },
-    { emoji: '🍒', en: 'cherry', ko: '체리' },
-    { emoji: '🥭', en: 'mango', ko: '망고' },
-    { emoji: '🍐', en: 'pear', ko: '배' },
+    { emoji: '🍎', en: 'apple', ko: '사과', pron: '애플' },
+    { emoji: '🍌', en: 'banana', ko: '바나나', pron: '바나나' },
+    { emoji: '🍊', en: 'orange', ko: '오렌지', pron: '오렌지' },
+    { emoji: '🍇', en: 'grape', ko: '포도', pron: '그레입' },
+    { emoji: '🍓', en: 'strawberry', ko: '딸기', pron: '스트로베리' },
+    { emoji: '🍉', en: 'watermelon', ko: '수박', pron: '워터멜론' },
+    { emoji: '🍑', en: 'peach', ko: '복숭아', pron: '피치' },
+    { emoji: '🍒', en: 'cherry', ko: '체리', pron: '체리' },
+    { emoji: '🥭', en: 'mango', ko: '망고', pron: '망고' },
+    { emoji: '🍐', en: 'pear', ko: '배', pron: '페어' },
+    { emoji: '🍋', en: 'lemon', ko: '레몬', pron: '레몬' },
+    { emoji: '🍍', en: 'pineapple', ko: '파인애플', pron: '파인애플' },
+    { emoji: '🥝', en: 'kiwi', ko: '키위', pron: '키위' },
+    { emoji: '🥥', en: 'coconut', ko: '코코넛', pron: '코코넛' },
+    { emoji: '🍈', en: 'melon', ko: '멜론', pron: '멜론' },
+    { emoji: '🫐', en: 'blueberry', ko: '블루베리', pron: '블루베리' },
   ],
   신체: [
-    { emoji: '👁️', en: 'eye', ko: '눈' },
-    { emoji: '👃', en: 'nose', ko: '코' },
-    { emoji: '👄', en: 'mouth', ko: '입' },
-    { emoji: '👂', en: 'ear', ko: '귀' },
-    { emoji: '✋', en: 'hand', ko: '손' },
-    { emoji: '🦶', en: 'foot', ko: '발' },
-    { emoji: '🦷', en: 'tooth', ko: '이' },
-    { emoji: '👆', en: 'finger', ko: '손가락' },
-    { emoji: '💪', en: 'arm', ko: '팔' },
-    { emoji: '🦵', en: 'leg', ko: '다리' },
+    { emoji: '👁️', en: 'eye', ko: '눈', pron: '아이' },
+    { emoji: '👃', en: 'nose', ko: '코', pron: '노우즈' },
+    { emoji: '👄', en: 'mouth', ko: '입', pron: '마우스' },
+    { emoji: '👂', en: 'ear', ko: '귀', pron: '이어' },
+    { emoji: '✋', en: 'hand', ko: '손', pron: '핸드' },
+    { emoji: '🦶', en: 'foot', ko: '발', pron: '풋' },
+    { emoji: '🦷', en: 'tooth', ko: '이', pron: '투스' },
+    { emoji: '👆', en: 'finger', ko: '손가락', pron: '핑거' },
+    { emoji: '💪', en: 'arm', ko: '팔', pron: '암' },
+    { emoji: '🦵', en: 'leg', ko: '다리', pron: '레그' },
+    { emoji: '🧠', en: 'head', ko: '머리', pron: '헤드' },
+    { emoji: '👍', en: 'thumb', ko: '엄지', pron: '썸' },
+    { emoji: '🦴', en: 'bone', ko: '뼈', pron: '본' },
+    { emoji: '❤️', en: 'heart', ko: '심장', pron: '하트' },
+    { emoji: '🫦', en: 'lip', ko: '입술', pron: '립' },
+    { emoji: '🤜', en: 'fist', ko: '주먹', pron: '피스트' },
   ],
   가족: [
-    { emoji: '👩', en: 'mama', ko: '엄마' },
-    { emoji: '👨', en: 'papa', ko: '아빠' },
-    { emoji: '👶', en: 'baby', ko: '아기' },
-    { emoji: '👵', en: 'grandma', ko: '할머니' },
-    { emoji: '👴', en: 'grandpa', ko: '할아버지' },
-    { emoji: '👧', en: 'sister', ko: '언니/누나' },
-    { emoji: '👦', en: 'brother', ko: '오빠/형' },
-    { emoji: '👨‍👩‍👧', en: 'family', ko: '가족' },
+    { emoji: '👩', en: 'mama', ko: '엄마', pron: '마마' },
+    { emoji: '👨', en: 'papa', ko: '아빠', pron: '파파' },
+    { emoji: '👶', en: 'baby', ko: '아기', pron: '베이비' },
+    { emoji: '👵', en: 'grandma', ko: '할머니', pron: '그랜마' },
+    { emoji: '👴', en: 'grandpa', ko: '할아버지', pron: '그랜파' },
+    { emoji: '👧', en: 'sister', ko: '언니/누나', pron: '시스터' },
+    { emoji: '👦', en: 'brother', ko: '오빠/형', pron: '브라더' },
+    { emoji: '👨‍👩‍👧', en: 'family', ko: '가족', pron: '패밀리' },
+    { emoji: '👩‍👧', en: 'mother', ko: '어머니', pron: '마더' },
+    { emoji: '👨‍👦', en: 'father', ko: '아버지', pron: '파더' },
+    { emoji: '👫', en: 'friend', ko: '친구', pron: '프렌드' },
+    { emoji: '👩‍🍼', en: 'aunt', ko: '이모/고모', pron: '앤트' },
+    { emoji: '👨‍💼', en: 'uncle', ko: '삼촌', pron: '엉클' },
   ],
 };
 
@@ -91,7 +116,7 @@ export default function Home() {
       <div className="text-center pt-8 pb-4 px-4">
         <p className="text-4xl mb-1">🌟</p>
         <h1 className="text-2xl font-black text-sky-500">Baby Words</h1>
-        <p className="text-sm text-gray-400">단어를 눌러서 들어봐요!</p>
+        <p className="text-sm text-gray-400">카드를 눌러서 발음을 들어봐요!</p>
       </div>
 
       {/* 카테고리 */}
@@ -99,7 +124,7 @@ export default function Home() {
         {(Object.keys(WORDS) as (keyof typeof WORDS)[]).map(c => (
           <button key={c} onClick={() => { setCat(c); setActive(null); }}
             className={`px-5 py-2 rounded-full text-white font-bold text-sm shadow-sm transition-all ${CAT_COLORS[c]} ${cat === c ? 'scale-110 shadow-md' : 'opacity-60'}`}>
-            {c}
+            {c} ({WORDS[c].length})
           </button>
         ))}
       </div>
@@ -108,11 +133,11 @@ export default function Home() {
       <div className="grid grid-cols-2 gap-3 px-4 pb-10 max-w-lg mx-auto">
         {words.map((w, i) => (
           <button key={w.en} onClick={() => { speak(w.en); setActive(i); }}
-            className={`${CARD_COLORS[i % CARD_COLORS.length]} border-2 rounded-3xl p-4 flex flex-col items-center gap-1 shadow-sm active:scale-95 transition-all ${active === i ? 'scale-105 shadow-lg' : ''}`}>
+            className={`${CARD_COLORS[i % CARD_COLORS.length]} border-2 rounded-3xl p-4 flex flex-col items-center gap-1 shadow-sm active:scale-95 transition-all ${active === i ? 'scale-105 shadow-lg ring-2 ring-sky-300' : ''}`}>
             <span className="text-5xl">{w.emoji}</span>
             <span className="text-xl font-black text-gray-700 mt-1">{w.en}</span>
-            <span className="text-sm text-gray-500 font-medium">{w.ko}</span>
-            <span className="text-xs text-gray-300 mt-1">🔊 눌러봐요</span>
+            <span className="text-xs font-bold text-sky-500">{w.pron}</span>
+            <span className="text-xs text-gray-400">{w.ko}</span>
           </button>
         ))}
       </div>
